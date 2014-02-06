@@ -7,7 +7,8 @@
  * Time: 10:31 AM
  */
 class BranchLog {
-    private $command="git log --no-merges --oneline --format='%an :: %s' %BASEBRANCH%..%BRANCH%";
+    private $preCommand="git fetch origin";
+    private $command="git log --no-merges --oneline --format='%an :: %s' origin/%BASEBRANCH%..origin/%BRANCH%";
     private $pathList=null;
 
     function __construct($paths, $baseBranch) {
@@ -40,6 +41,7 @@ class BranchLog {
         foreach ($this->pathList as $path) {
             if (is_dir($path)) {
                 chdir($path);
+//                exec($this->preCommand);
                 exec($command, $results[$path]);
             } else {
                 $results[$path]='Invalid path';
