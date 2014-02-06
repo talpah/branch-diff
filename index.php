@@ -37,33 +37,39 @@ function printStatsFor($paths, $branch, $display) {
                         ->color("Invalid path", 'white', 'red')
                     . $display->setReturn(false)
                 )
-            ->newline();
+                ->newline();
 
             continue;
         }
+        $hasDiff=count($data['commits']) > 0;
         $display
             ->idented(
                 $display
                     ->setReturn(true)
-                    ->color("$path", 'yellow')
+                    ->color("$path", $hasDiff ? 'yellow' : 'gray')
                 . $display->setReturn(false)
             );
-        if (count($data['commits']) > 0) {
+        if ($hasDiff) {
             $display->idented(
                 $display
                     ->setReturn(true)
-                    ->color(count($data['commits']), 'red')
-                . " commits from "
+                    ->idented(
+                        $display->color(count($data['commits']), 'red')
+                    )
+                . $display->idented(" commits from ")
                 . $display
-                    ->color(count($data['authors']), 'cyan')
+                    ->idented(
+                        $display->color(count($data['authors']), 'cyan')
+                    )
+                . $display->idented(" authors")
                 . $display->setReturn(false)
-                . " authors"
+
             );
         } else {
             $display->idented(
                 $display
                     ->setReturn(true)
-                    ->color("No difference", 'green')
+                    ->idented($display->color("--", 'gray'))
                 . $display->setReturn(false)
             );
         }

@@ -18,7 +18,7 @@ class DisplayConsole implements DisplayInterface {
         "underline"=>4,
         "blink"    =>5,
         "inverse"  =>7,
-        "hidden"   =>8,
+        "hidden"   =>8
     );
 
     protected static $ANSI_COLORS=array(
@@ -30,6 +30,7 @@ class DisplayConsole implements DisplayInterface {
         "magenta"=>35,
         "cyan"   =>36,
         "white"  =>37,
+        "gray"   =>37
     );
     protected static $ANSI_BG_COLORS=array(
         "black"  =>40,
@@ -39,8 +40,26 @@ class DisplayConsole implements DisplayInterface {
         "blue"   =>44,
         "magenta"=>45,
         "cyan"   =>46,
-        "white"  =>47
+        "white"  =>47,
+        "greay"  =>47
     );
+
+    public function __construct() {
+        $this->newline();
+        $this->bold(
+            $this
+                ->setReturn(true)
+                ->color("-- Branch", 'red') .
+            $this->setReturn(false)
+        );
+        $this->bold(
+            $this
+                ->setReturn(true)
+                ->color("Diff ++", 'green') .
+            $this->setReturn(false)
+        );
+        $this->newline()->newline();
+    }
 
     /**
      * @param string $text

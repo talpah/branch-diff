@@ -12,7 +12,16 @@ class DisplayBrowser implements DisplayInterface {
     protected $return=false;
 
     public function __construct() {
+        echo "<!DOCTYPE html>";
+        echo "<html>";
+        echo "<head>";
+        echo "<title>BranchDiff</title>";
+        echo "</head>";
         echo "<body style=\"background-color: black; color: white; font-family: sans-serif;\">";
+        echo "<h1>";
+        $this->color("-- Branch", 'red');
+        $this->color("Diff ++", 'green');
+        echo "</h1>";
     }
 
     /**
@@ -37,9 +46,9 @@ class DisplayBrowser implements DisplayInterface {
      * @return DisplayInterface
      */
     public function idented($text, $level=1) {
-        $margin=40;
+        $margin=20;
         $margin*=$level;
-        $output="<span style=\"margin-left: {$margin}px; min-width: 100px; display: inline-block;\">$text</span>";
+        $output="<span style=\"margin-left: {$margin}px; min-width: 80px; display: inline-block;\">$text</span>";
         if ($this->return) {
             return $output;
         } else {
@@ -122,6 +131,11 @@ class DisplayBrowser implements DisplayInterface {
 
     public function __toString() {
         return '';
+    }
+
+    public function __destruct() {
+        echo "</body>";
+        echo "</html>";
     }
 
 }
