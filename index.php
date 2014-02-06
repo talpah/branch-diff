@@ -9,6 +9,14 @@ $branches=explode(':', BRANCH_COMPARE_LIST);
 
 $display=DisplayAdapter::create(isset($_SERVER['REQUEST_URI']) ? 'browser' : 'console');
 
+$display->bold(
+    "Using ".
+    $display->setReturn(true)->color(BASE_BRANCH, 'cyan').
+    " as base." .
+    $display->setReturn(false)
+);
+$display->newline()->newline();
+
 foreach ($branches as $branch) {
     printStatsFor($paths, $branch, $display);
 }
