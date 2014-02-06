@@ -1,0 +1,7 @@
+<?php
+
+const BASE_BRANCH = 'production';
+
+const PATH_LIST = "/var/www/dev:/var/www/testing:/var/www/staging";
+
+const BRANCH_COMPARE_LIST = "development:testing:staging";
